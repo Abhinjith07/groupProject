@@ -1,11 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/utils/kcolors.dart';
+import 'package:fashion_app/common/utils/kstrings.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
 import 'package:fashion_app/common/widgets/back_button.dart';
+import 'package:fashion_app/common/widgets/error_modal.dart';
+import 'package:fashion_app/common/widgets/login_bottom_sheet.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/const/constants.dart';
+import 'package:fashion_app/src/products/controllers/colors_sizes_notifier.dart';
 import 'package:fashion_app/src/products/controllers/product_notifier.dart';
+import 'package:fashion_app/src/products/widgets/color_selection_widget.dart';
 import 'package:fashion_app/src/products/widgets/expandable_text.dart';
+import 'package:fashion_app/src/products/widgets/product_bottom_bar.dart';
+import 'package:fashion_app/src/products/widgets/product_sizes_widget.dart';
 import 'package:fashion_app/src/products/widgets/similar_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -20,6 +28,7 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? accessToken = Storage().getString('accessToken');
     return Consumer<ProductNotifier>(
       builder: (context, productNotifier, child) {
         return Scaffold(
@@ -146,7 +155,13 @@ class ProductPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ReusableText(
                       text: "Select Sizes",
-                      style: appStyle(16, Kolors.kDark, FontWeight.w600)),
+                      style: appStyle(14, Kolors.kDark, FontWeight.w600)),
+                ),
+              ),
+               const SliverToBoxAdapter(
+                 child: Padding(
+                     padding: EdgeInsets.all(8.0),
+                child: ProductSizesWidget(),
                 ),
               ),
               SliverToBoxAdapter(
@@ -159,7 +174,14 @@ class ProductPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ReusableText(
                       text: "Select Color",
-                      style: appStyle(16, Kolors.kDark, FontWeight.w600)),
+                      style: appStyle(14, Kolors.kDark, FontWeight.w600)),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ColorSelectionWidget(),
+
                 ),
               ),
               SliverToBoxAdapter(
@@ -172,13 +194,29 @@ class ProductPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ReusableText(
                       text: "Select Products",
-                      style: appStyle(16, Kolors.kDark, FontWeight.w600)),
+                      style: appStyle(14, Kolors.kDark, FontWeight.w600)),
                 ),
               ),
               const SliverToBoxAdapter(
                 child: SimilarProducts(),
               ),
             ],
+          ),
+          bottomNavigationBar: ProductBottomBar(
+            onPressed: (){
+              if (accessToken == null){
+                loginBottomSheet(context);
+              }else{
+                if (context.read<ColorsSizesNotifier>().color == '' ||
+                    context.read<ColorsSizesNotifier>().sizes == ''){
+                  showErrorPopup(context,AppText.kCartErrorText ,"Error Adding to Cart", true);
+                }else{
+                  ///TODO:CRT LOGIC
+                }
+              }
+
+            },
+            price: productNotifier.product!.price.toStringAsFixed(2),
           ),
         );
       },

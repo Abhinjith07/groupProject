@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ColorSizesNotifier with ChangeNotifier {
+class ColorsSizesNotifier with ChangeNotifier {
   String _sizes = '';
 
   String get sizes => _sizes;
