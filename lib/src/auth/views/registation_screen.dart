@@ -4,10 +4,14 @@ import 'package:fashion_app/common/widgets/back_button.dart';
 import 'package:fashion_app/common/widgets/custom_button.dart';
 import 'package:fashion_app/common/widgets/email_textfield.dart';
 import 'package:fashion_app/common/widgets/password_field.dart';
+import 'package:fashion_app/src/auth/controllers/auth_notifier.dart';
+import 'package:fashion_app/src/auth/models/registration_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
 
@@ -17,11 +21,10 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   late final TextEditingController _usernameController =
-  TextEditingController();
-  late final TextEditingController _emailController =
-  TextEditingController();
+      TextEditingController();
+  late final TextEditingController _emailController = TextEditingController();
   late final TextEditingController _passwordController =
-  TextEditingController();
+      TextEditingController();
   final FocusNode _passwordNode = FocusNode();
   @override
   void dispose() {
@@ -30,8 +33,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
     _passwordNode.dispose();
     super.dispose();
   }
-  @override
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -48,7 +51,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           Text(
             "Dbest Fashions",
             textAlign: TextAlign.center,
-            style: appStyle(24, Kolors.kPrimary,FontWeight.bold),
+            style: appStyle(24, Kolors.kPrimary, FontWeight.bold),
           ),
           SizedBox(
             height: 10.h,
@@ -56,7 +59,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           Text(
             "Hi! Welcome back. You've been missed",
             textAlign: TextAlign.center,
-            style: appStyle(13, Kolors.kGray,FontWeight.normal),
+            style: appStyle(13, Kolors.kGray, FontWeight.normal),
           ),
           SizedBox(
             height: 25.h,
@@ -76,7 +79,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     color: Kolors.kGray,
                   ),
                   keyboardType: TextInputType.name,
-                  onEditingComplete: (){
+                  onEditingComplete: () {
                     FocusScope.of(context).requestFocus(_passwordNode);
                   },
                 ),
@@ -94,7 +97,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     color: Kolors.kGray,
                   ),
                   keyboardType: TextInputType.emailAddress,
-                  onEditingComplete: (){
+                  onEditingComplete: () {
                     FocusScope.of(context).requestFocus(_passwordNode);
                   },
                 ),
@@ -106,25 +109,40 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   focusNode: _passwordNode,
                   radius: 25,
                 ),
-
                 SizedBox(
                   height: 20.h,
                 ),
-                CustomButton(
-                  onTap: (){},
-                  text: "S I G N U P",
-                  btnHeight: ScreenUtil().screenWidth,
-                  btnHieght: 40,
-                  radius: 20,
-                ),
+                context.watch<AuthNotifier>().isRLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: Kolors.kPrimary,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Kolors.kWhite),
+                        ),
+                      )
+                    : CustomButton(
+                        onTap: () {
+                          RegistrationModel model = RegistrationModel(
+                              username: _usernameController.text,
+                              password: _passwordController.text,
+                              email: _emailController.text);
+
+                          String data = registrationModelToJson(model);
+
+                          context
+                              .read<AuthNotifier>()
+                              .registrationFunc(data, context);
+                        },
+                        text: "S I G N U P",
+                        btnHeight: ScreenUtil().screenWidth,
+                        btnHieght: 40,
+                        radius: 20,
+                      ),
               ],
             ),
-
           ),
-
         ],
       ),
-
     );
   }
 }
