@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../src/auth/views/login_screen.dart';
 import '../../src/auth/views/registation_screen.dart';
+import '../../src/checkout/views/checkout_screen.dart';
 import '../../src/notification/views/notification_screen.dart';
 import '../../src/profile/views/orders_screen.dart';
 import '../../src/profile/views/policy_screen.dart';
@@ -96,10 +97,10 @@ final GoRouter _router = GoRouter(
 //       builder: (context, state) => const TrackOrderPage(),
 //     ),
 
-//     GoRoute(
-//       path: '/checkout',
-//       builder: (context, state) => const CheckoutPage(),
-//     ),
+     GoRoute(
+       path: '/checkout',
+      builder: (context, state) => const CheckoutPage(),
+     ),
 
 //       GoRoute(
 //       path: '/successful',

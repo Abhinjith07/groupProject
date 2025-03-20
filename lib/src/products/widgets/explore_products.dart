@@ -1,18 +1,46 @@
 import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/widgets/login_bottom_sheet.dart';
 import 'package:fashion_app/const/constants.dart';
+import 'package:fashion_app/src/home/controllers/home_tab_notifier.dart';
 import 'package:fashion_app/src/products/widgets/staggered_tile_widget.dart';
+import 'package:fashion_app/src/wishlist/controllers/wishlist_notifier.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 
-class ExploreProducts extends StatelessWidget {
+import '../../../common/widgets/shimmers/list_shimmer.dart';
+import '../../../const/resource.dart';
+import '../hooks/fetch_products.dart';
+
+class ExploreProducts extends HookWidget {
   const ExploreProducts({super.key});
 
   @override
   Widget build(BuildContext context) {
     String? accessToken = Storage().getString('accessToken');
-    return Padding(
+    final results = fetchProducts(context.watch<HomeTabNotifier>().queryType);
+    final products = results.products;
+    final isLoading = results.isLoading;
+    final error = results.error;
+
+
+
+
+
+    if (isLoading) {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
+        child: ListShimmer(),
+      );
+    }
+
+    return products.isEmpty ?Padding(
+        padding:EdgeInsets.all(25.w),
+      child: Image.asset(R.ASSETS_IMAGES_EMPTY_PNG,height: ScreenUtil().screenHeight * .3,),
+    ) :Padding(
       padding: EdgeInsets.symmetric(horizontal: 2.h),
       child: StaggeredGrid.count(
         mainAxisSpacing: 4,
@@ -29,7 +57,9 @@ class ExploreProducts extends StatelessWidget {
                   if (accessToken == null) {
                     loginBottomSheet(context);
                   } else {
-                    //handle wishlist functionality
+                    context
+                        .read<WishlistNotifier>()
+                        .addRemoveWishlist(product.id,() {});
                   }
                 },
                 product: product,

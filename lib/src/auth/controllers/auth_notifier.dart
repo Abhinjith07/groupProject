@@ -85,10 +85,10 @@ class AuthNotifier with ChangeNotifier {
       var url = Uri.parse('${Environment.appBaseUrl}/auth/users/me');
       var response = await http.get(
         url,
-        headers: {
-          'Authorization': 'Token $accessToken',
-          'Content-Type': 'application/json'
-        },
+          headers: {
+            'Authorization': 'Token $accessToken',
+            'Content-Type': 'application/json',
+          }
       );
 
       if (response.statusCode == 200) {

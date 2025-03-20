@@ -8,6 +8,8 @@ import 'package:fashion_app/common/widgets/error_modal.dart';
 import 'package:fashion_app/common/widgets/login_bottom_sheet.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/const/constants.dart';
+import 'package:fashion_app/src/cart/controllers/cart_notifier.dart';
+import 'package:fashion_app/src/cart/models/create_cart_model.dart';
 import 'package:fashion_app/src/products/controllers/colors_sizes_notifier.dart';
 import 'package:fashion_app/src/products/controllers/product_notifier.dart';
 import 'package:fashion_app/src/products/widgets/color_selection_widget.dart';
@@ -15,6 +17,7 @@ import 'package:fashion_app/src/products/widgets/expandable_text.dart';
 import 'package:fashion_app/src/products/widgets/product_bottom_bar.dart';
 import 'package:fashion_app/src/products/widgets/product_sizes_widget.dart';
 import 'package:fashion_app/src/products/widgets/similar_products.dart';
+import 'package:fashion_app/src/wishlist/controllers/wishlist_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,17 +47,29 @@ class ProductPage extends StatelessWidget {
                 actions: [
                   Padding(
                     padding: const EdgeInsets.only(right: 16.0),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: const CircleAvatar(
+                    child: Consumer<WishlistNotifier>(
+                      builder: (context,wishlistNotifier,child) {
+                      return  GestureDetector(
+                      onTap: () {
+                        if (accessToken == null) {
+                          loginBottomSheet(context);
+                        }else{
+                          wishlistNotifier..addRemoveWishlist(
+                              productNotifier.product!.id,() {});
+                        }
+
+                  },
+                      child:  CircleAvatar(
                         backgroundColor: Kolors.kSecondaryLight,
-                        child: Icon(
-                          AntDesign.heart,
-                          color: Kolors.kRed,
-                          size: 18,
-                        ),
+                       child: Icon(
+                        AntDesign.heart,
+                        color:wishlistNotifier.wishlist.contains(productNotifier.product!.id)? Kolors.kRed : Kolors.kGray ,
+                        size: 18,
                       ),
                     ),
+                  );
+                  },
+                  ),
                   )
                 ],
                 flexibleSpace: FlexibleSpaceBar(
@@ -211,7 +226,14 @@ class ProductPage extends StatelessWidget {
                     context.read<ColorsSizesNotifier>().sizes == ''){
                   showErrorPopup(context,AppText.kCartErrorText ,"Error Adding to Cart", true);
                 }else{
-                  ///TODO:CRT LOGIC
+                  CreateCartModel data = CreateCartModel(
+                      product: context.read<ProductNotifier>().product!.id,
+                      quantity: 1,
+                      size: context.read<ColorsSizesNotifier>().sizes ,
+                      color: context.read<ColorsSizesNotifier>().color);
+
+                  String cartData = createCartModelToJson(data);
+                  context.read<CartNotifier>().addToCart(cartData, context);
                 }
               }
 

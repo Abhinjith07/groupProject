@@ -10,6 +10,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
+import '../../../common/widgets/empty_widget.dart';
+import '../../wishlist/controllers/wishlist_notifier.dart';
+
+
 class ProductsByCategory extends HookWidget {
   const ProductsByCategory({
     super.key,
@@ -29,7 +33,9 @@ class ProductsByCategory extends HookWidget {
         body: ListShimmer(),
       );
     }
-    return Padding(
+    return products.isEmpty
+        ?  const EmptyWidget()
+        :Padding(
       padding: EdgeInsets.symmetric(horizontal: 12.h),
       child: StaggeredGrid.count(
         mainAxisSpacing: 4,
@@ -46,7 +52,9 @@ class ProductsByCategory extends HookWidget {
                   if (accessToken == null) {
                     loginBottomSheet(context);
                   } else {
-                    //handle wishlist functionality
+                    context
+                        .read<WishlistNotifier>()
+                        .addRemoveWishlist(product.id,() {});
                   }
                 },
                 product: product,
@@ -57,3 +65,4 @@ class ProductsByCategory extends HookWidget {
     );
   }
 }
+
