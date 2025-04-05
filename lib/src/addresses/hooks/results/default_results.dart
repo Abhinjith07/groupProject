@@ -6,7 +6,7 @@ import 'package:fashion_app/src/categories/models/categories_model.dart';
 import 'package:flutter/material.dart';
 
 class FetchDefaultAddress {
-  final AddressModel address;
+  final AddressModel? address;
   final bool isLoading;
   final String? error;
   final VoidCallback refetch;

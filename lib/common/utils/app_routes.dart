@@ -5,11 +5,12 @@ import 'package:fashion_app/src/categories/views/category_page.dart';
 import 'package:fashion_app/src/entrypoint/views/entrypoint.dart';
 import 'package:fashion_app/src/onboarding/views/onboarding_screen.dart';
 import 'package:fashion_app/src/products/views/product_screen.dart';
-import 'package:fashion_app/src/profile/views/shipping_address_screen.dart';
+import 'package:fashion_app/src/addresses/view/shipping_address_screen.dart';
 import 'package:fashion_app/src/splashscreen/views/splashscreen_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../src/addresses/view/add_address.dart';
 import '../../src/auth/views/login_screen.dart';
 import '../../src/auth/views/registation_screen.dart';
 import '../../src/checkout/views/checkout_screen.dart';
@@ -77,10 +78,10 @@ final GoRouter _router = GoRouter(
       builder: (context, state) => const CategoryPage(),
     ),
 
-//     GoRoute(
-//       path: '/addaddress',
-//       builder: (context, state) => const AddAddress(),
-//     ),
+    GoRoute(
+      path: '/addaddress',
+      builder: (context, state) => const AddAddress(),
+    ),
 
     GoRoute(
        path: '/addresses',
