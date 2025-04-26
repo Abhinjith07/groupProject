@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class ProfileTileWidget extends StatelessWidget {
-  const ProfileTileWidget({super.key, required this.title, this.onTap, required this.leading});
-  
+  const ProfileTileWidget(
+      {super.key, required this.title, this.onTap, required this.leading});
+
   final String title;
   final void Function()? onTap;
   final IconData leading;
@@ -17,16 +18,17 @@ class ProfileTileWidget extends StatelessWidget {
       onTap: onTap,
       leading: Icon(
         leading,
-        color: Kolors.kGray,),
+        color: Kolors.kGray,
+      ),
       title: Text(
         title,
-        style: appStyle(13,
-            Kolors.kDark,
-            FontWeight.normal),),
+        style: appStyle(13, Kolors.kDark, FontWeight.normal),
+      ),
       trailing: const Icon(
         AntDesign.right,
         size: 16,
-        color: Kolors.kDark,),
+        color: Kolors.kDark,
+      ),
     );
   }
 }

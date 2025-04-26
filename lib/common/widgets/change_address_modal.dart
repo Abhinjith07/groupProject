@@ -7,7 +7,6 @@ import 'package:fashion_app/src/addresses/widgets/checkout_address_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 Future<dynamic> changeAddressBottomSheet(BuildContext context) {
   return showModalBottomSheet<void>(
     context: context,
@@ -42,7 +41,7 @@ Future<dynamic> changeAddressBottomSheet(BuildContext context) {
             SizedBox(
               height: 10.h,
             ),
-            
+            ///TODO: Add Address Selection
             SizedBox(
               height: ScreenUtil().screenHeight*0.6,
               child: const CheckoutAddressList())
@@ -51,12 +50,4 @@ Future<dynamic> changeAddressBottomSheet(BuildContext context) {
       );
     },
   );
-}
-
-extension on double {
-  get h => null;
-}
-
-extension on int {
-  get h => null;
 }

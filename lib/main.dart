@@ -8,9 +8,11 @@ import 'package:fashion_app/src/cart/controllers/cart_notifier.dart';
 import 'package:fashion_app/src/categories/controllers/category_notifier.dart';
 import 'package:fashion_app/src/entrypoint/controllers/bottom_tab_notifier.dart';
 import 'package:fashion_app/src/home/controllers/home_tab_notifier.dart';
+import 'package:fashion_app/src/notification/controllers/notification_notifier.dart';
 import 'package:fashion_app/src/onboarding/controllers/onboarding_notifier.dart';
 import 'package:fashion_app/src/products/controllers/colors_sizes_notifier.dart';
 import 'package:fashion_app/src/products/controllers/product_notifier.dart';
+import 'package:fashion_app/src/reviews/controller/rating_notifier.dart';
 import 'package:fashion_app/src/search/controllers/search_notifier.dart';
 import 'package:fashion_app/src/splashscreen/views/splashscreen_screen.dart';
 import 'package:fashion_app/src/wishlist/controllers/wishlist_notifier.dart';
@@ -22,26 +24,29 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // load the correct environment
+  //load the correct environment
+
   await dotenv.load(fileName: Environment.fileName);
 
   await GetStorage.init();
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => OnboardingNotifier()),
-      ChangeNotifierProvider(create: (_) => TabIndexNotifier()),
-      ChangeNotifierProvider(create: (_) => CategoryNotifier()),
-      ChangeNotifierProvider(create: (_) => HomeTabNotifier()),
-      ChangeNotifierProvider(create: (_) => ProductNotifier()),
-      ChangeNotifierProvider(create: (_) => ColorsSizesNotifier()),
-      ChangeNotifierProvider(create: (_) => PasswordNotifier()),
-      ChangeNotifierProvider(create: (_) => AuthNotifier()),
-      ChangeNotifierProvider(create: (_) => SearchNotifier()),
-      ChangeNotifierProvider(create: (_) => WishlistNotifier()),
-      ChangeNotifierProvider(create: (_) => CartNotifier()),
-      ChangeNotifierProvider(create: (_) => AddressNotifier()),
+     ChangeNotifierProvider(create: (_) => OnboardingNotifier()),
+     ChangeNotifierProvider(create: (_) => TabIndexNotifier()),
+     ChangeNotifierProvider(create: (_) => CategoryNotifier()),
+     ChangeNotifierProvider(create: (_) => HomeTabNotifier()),
+     ChangeNotifierProvider(create: (_) => ProductNotifier()),
+     ChangeNotifierProvider(create: (_) => ColorSizesNotifier()),
+     ChangeNotifierProvider(create: (_) => PasswordNotifier()),
+     ChangeNotifierProvider(create: (_) => AuthNotifier()),
+     ChangeNotifierProvider(create: (_) => SearchNotifier()),
+     ChangeNotifierProvider(create: (_) => WishlistNotifier()),
+     ChangeNotifierProvider(create: (_) => CartNotifier()),
+     ChangeNotifierProvider(create: (_) => AddressNotifier()),
+     ChangeNotifierProvider(create: (_) => NotificationNotifier()),
+     ChangeNotifierProvider(create: (_) => RatingNotifier()),
     ],
-    child: const MyApp(),
+     child: const MyApp(),
   ));
 }
 

@@ -49,7 +49,7 @@ Future<dynamic> loginBottomSheet(BuildContext context) {
                 onTap: () {
                   context.go("/login");
                 },
-                btnHeight: 35.h,
+                btnHieght: 35.h,
                 radius: 16,
                 btnWidth: ScreenUtil().screenWidth ,
               ),

@@ -4,14 +4,19 @@ import 'package:fashion_app/common/widgets/change_address_modal.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/const/constants.dart';
 import 'package:fashion_app/src/addresses/controllers/address_notifier.dart';
-import 'package:fashion_app/src/addresses/models/address_model.dart';
+import 'package:fashion_app/src/addresses/models/addresses_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 
 class AddressTile extends StatelessWidget {
-  const AddressTile({super.key, required this.address, required this.isCheckout, this.setDefault, this.onDelete});
+  const AddressTile(
+      {super.key,
+      required this.address,
+      required this.isCheckout,
+      this.setDefault,
+      this.onDelete});
 
   final AddressModel address;
   final bool isCheckout;
@@ -21,22 +26,23 @@ class AddressTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AddressNotifier>(
-      builder: (context, addressNotifier, child){
+      builder: (context, addressNotifier, child) {
         return ListTile(
           contentPadding: EdgeInsets.zero,
-          leading:const CircleAvatar(
+          leading: const CircleAvatar(
             radius: 28,
             backgroundColor: Kolors.kSecondaryLight,
-            child: Icon(MaterialIcons.location_pin,
+            child: Icon(
+              MaterialIcons.location_pin,
               color: Kolors.kPrimary,
               size: 30,
             ),
           ),
-          title: ReusableText(
-              text: addressNotifier.address == null
-                  ? address.addressType.toUpperCase()
-                  : addressNotifier.address!.addressType.toUpperCase(),
-              style: appStyle(13, Kolors.kDark, FontWeight.w400)),
+          title:ReusableText(
+                  text: addressNotifier.address == null
+                      ? address.addressType.toUpperCase()
+                      : addressNotifier.address!.addressType.toUpperCase(),
+                  style: appStyle(13, Kolors.kDark, FontWeight.w400)),
           subtitle: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,19 +56,19 @@ class AddressTile extends StatelessWidget {
                   text: addressNotifier.address == null
                       ? address.phone
                       : addressNotifier.address!.phone,
-                  style: appStyle(11, Kolors.kGray, FontWeight.w400)),
+                  style: appStyle(11, Kolors.kGray, FontWeight.w400))
             ],
           ),
           trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               GestureDetector(
                 onTap: () {
                   if (isCheckout == true) {
                     changeAddressBottomSheet(context);
-                  }else {
-                    address.isDefault ? () {} : 
+                  } else {
+                    address.isDefault ? (){} :
                     setDefault!();
                   }
                 },
@@ -70,48 +76,47 @@ class AddressTile extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   decoration: BoxDecoration(
                     borderRadius: kRadiusAll,
-                    color:
-                    isCheckout
+                    color: isCheckout
                         ? Kolors.kPrimary
                         : addressNotifier.address == null
-                        ? address.isDefault == true
-                        ? Colors.green
-                        : Kolors.kGrayLight
-                        :addressNotifier.address!.isDefault != true
-                        ? Colors.green : Kolors.kGrayLight,
+                            ? address.isDefault == true
+                                ? Colors.green
+                                : Kolors.kGrayLight
+                            : addressNotifier.address!.isDefault != true
+                                ? Colors.green
+                                : Kolors.kGrayLight,
                   ),
                   child: ReusableText(
                       text: isCheckout == true
                           ? "Change"
                           : addressNotifier.address == null
-                          ? address.isDefault == true
-                          ? "Default"
-                          : "Set Default"
-                          : addressNotifier.address!.isDefault == true
-                          ? "Default"
-                          : "Set Default",
+                              ? address.isDefault == true
+                                  ? "Default"
+                                  : "Set Default"
+                              : addressNotifier.address!.isDefault == true
+                                  ? "Default"
+                                  : "Set Default",
                       style: appStyle(12, Kolors.kWhite, FontWeight.w400)),
                 ),
               ),
-
               isCheckout == true || address.isDefault
-                  ? const  SizedBox.shrink(): GestureDetector(
-                onTap: onDelete,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  decoration: BoxDecoration(
-                    color: Kolors.kRed,
-                    borderRadius: kRadiusAll
-                  ),
-                  child: ReusableText(text: "Delete", style:
-                  appStyle(12, Kolors.kWhite, FontWeight.w400)),
-                ),
-              )
-
-
+                  ? const SizedBox.shrink()
+                  : GestureDetector(
+                      onTap: onDelete,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        decoration: BoxDecoration(
+                            color: Kolors.kRed, borderRadius: kRadiusAll),
+                        child: ReusableText(
+                            text: "Delete",
+                            style:
+                                appStyle(12, Kolors.kWhite, FontWeight.w400)),
+                      ),
+                    )
             ],
           ),
         );
-    },
-    );}
+      },
+    );
+  }
 }

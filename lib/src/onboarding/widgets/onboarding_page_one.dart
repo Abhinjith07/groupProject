@@ -10,31 +10,24 @@ class OnboardingScreenOne extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: ScreenUtil().screenWidth,
       height: ScreenUtil().screenHeight,
       child: Stack(
         children: [
-          // Background image with BoxFit.cover to ensure it scales well
           Image.asset(
             R.ASSETS_IMAGES_EXPERIENCE_PNG,
             fit: BoxFit.cover,
-            width: ScreenUtil().screenWidth,
-            height: ScreenUtil().screenHeight,
           ),
           Positioned(
-            bottom: ScreenUtil().setHeight(125), // Added space between image and text
-            left: ScreenUtil().setWidth(30),     // Responsive left padding
-            right: ScreenUtil().setWidth(30),    // Responsive right padding
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w), // Horizontal padding adjusted for scaling
+              bottom: 200,
+              left: 30,
+              right: 30,
               child: Text(
                 AppText.kOnboardHome,
                 textAlign: TextAlign.center,
-                style: appStyle(11.sp, Kolors.kGray, FontWeight.normal), // Adjust font size using ScreenUtil
-              ),
-            ),
-          ),
+                style: appStyle(11, Kolors.kGray, FontWeight.normal),
+              ))
         ],
       ),
     );

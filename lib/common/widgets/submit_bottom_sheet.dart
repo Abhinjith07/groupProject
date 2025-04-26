@@ -13,6 +13,7 @@ Future<dynamic> logoutBottomSheet(BuildContext context) {
         decoration: BoxDecoration(borderRadius: kRadiusTop),
         child: ListView(
           children: [
+           
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
@@ -23,14 +24,18 @@ Future<dynamic> logoutBottomSheet(BuildContext context) {
                     borderColor: Kolors.kDark,
                     btnColor: Kolors.kWhite,
                     onTap: () => Navigator.pop(context),
+                    btnHieght: 35.h,
                     radius: 16,
-                    btnWidth: ScreenUtil().screenWidth / 2.2, btnHeight: 35.h,
+                    btnWidth: ScreenUtil().screenWidth / 2.2,
                   ),
                   CustomButton(
                     text: "Submit",
-                    onTap: () {},
+                    onTap: () {
+                     
+                    },
+                    btnHieght: 35.h,
                     radius: 16,
-                    btnWidth: ScreenUtil().screenWidth / 2.2, btnHeight: 35.h
+                    btnWidth: ScreenUtil().screenWidth / 2.2,
                   ),
                 ],
               ),

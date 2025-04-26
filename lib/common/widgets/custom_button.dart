@@ -1,3 +1,4 @@
+
 import 'package:fashion_app/common/utils/kcolors.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
@@ -10,7 +11,7 @@ class CustomButton extends StatelessWidget {
     this.onTap,
     this.btnWidth,
     required this.text,
-    this.btnHieght, this.textSize, this.borderColor, this.radius, this.btnColor, required double btnHeight,
+    this.btnHieght, this.textSize, this.borderColor, this.radius, this.btnColor,
   });
   final void Function()? onTap;
   final double? btnWidth;

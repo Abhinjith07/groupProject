@@ -12,20 +12,19 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-     children: [
-       ReusableText
-         (text: AppText.kCategories,
-           style:appStyle(13, Kolors.kDark, FontWeight.w600)),
-
-       GestureDetector(
-         onTap: (){
-           context.push('/categories');
-         },
-         child:  ReusableText
-           (text: AppText.kViewAll,
-             style:appStyle(13, Kolors.kGray, FontWeight.w600)),
-       )
-     ],
+      children: [
+        ReusableText(
+            text: AppText.kCategories,
+            style: appStyle(13, Kolors.kDark, FontWeight.w600)),
+        GestureDetector(
+          onTap: () {
+            context.push('/categories');
+          },
+          child: ReusableText(
+              text: AppText.kViewAll,
+              style: appStyle(13, Kolors.kGray, FontWeight.normal)),
+        )
+      ],
     );
   }
 }

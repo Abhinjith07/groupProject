@@ -1,14 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fashion_app/common/utils/kcolors.dart';
 import 'package:fashion_app/common/utils/kstrings.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
+import 'package:fashion_app/common/widgets/custom_button.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/const/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../common/widgets/custom_button.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeSlider extends StatelessWidget {
   const HomeSlider({super.key});
@@ -49,22 +48,19 @@ class HomeSlider extends StatelessWidget {
                 children: [
                   ReusableText(
                       text: AppText.kCollection,
-                      style: appStyle(16, Kolors.kDark, FontWeight.w600)),
+                      style: appStyle(20, Kolors.kDark, FontWeight.w600)),
                   SizedBox(
                     height: 5.h,
                   ),
                   Text(
-                    'Discount 50% off \n first transaction',
-                    style: appStyle(14, Kolors.kDark, FontWeight.normal),
+                    'Discount 50% off \nthe first transaction',
+                    style: appStyle(
+                        14, Kolors.kDark.withOpacity(.6), FontWeight.normal),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 10.h,
                   ),
-                  CustomButton(
-                    text: "Shop Now",
-                    btnHeight: 0,
-                    btnWidth: 150.w,
-                  )
+                  CustomButton(text: "Shop Now", btnWidth: 150.w)
                 ],
               ),
             ),
@@ -75,9 +71,3 @@ class HomeSlider extends StatelessWidget {
   }
 }
 
-List<String> images = [
-  "https://snaptoro.com/coupons-category/nike-coupons/1.webp",
-  "https://www.flipkart.com/q/white-puma-shoes/2.webp",
-  "https://snaptoro.com/coupons-category/nike-coupons/1.webp",
-  "https://www.flipkart.com/q/white-puma-shoes/2.webp"
-];

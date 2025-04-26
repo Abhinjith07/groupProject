@@ -24,7 +24,9 @@ class _LoginPageState extends State<LoginPage> {
       TextEditingController();
   late final TextEditingController _passwordController =
       TextEditingController();
+
   final FocusNode _passwordNode = FocusNode();
+
   @override
   void dispose() {
     _usernameController.dispose();
@@ -113,18 +115,17 @@ class _LoginPageState extends State<LoginPage> {
 
                           String data = loginModelToJson(model);
 
-                          print(data);
 
                           context.read<AuthNotifier>().loginFunc(data, context);
                         },
-                        text: "L O G I N",
-                        btnHeight: ScreenUtil().screenWidth,
+                        text: "L  O  G  I  N",
+                        btnWidth: ScreenUtil().screenWidth,
                         btnHieght: 40,
                         radius: 20,
-                      ),
+                      )
               ],
             ),
-          ),
+          )
         ],
       ),
       bottomNavigationBar: SizedBox(

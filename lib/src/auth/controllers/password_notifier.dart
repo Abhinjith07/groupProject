@@ -5,7 +5,7 @@ class PasswordNotifier with ChangeNotifier {
 
   bool get password => _password;
 
-  void setPassword(){
+  void setPassword() {
     _password = !_password;
     notifyListeners();
   }

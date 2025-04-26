@@ -1,4 +1,3 @@
-import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/utils/kcolors.dart';
 import 'package:fashion_app/common/utils/kstrings.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
@@ -15,76 +14,72 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Kolors.kWhite,
-        width: ScreenUtil().screenWidth,
-        height: ScreenUtil().screenHeight,
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            double screenHeight = constraints.maxHeight;
-            double screenWidth = constraints.maxWidth;
+        body: Container(
+      color: Kolors.kWhite,
+      width: ScreenUtil().screenWidth,
+      height: ScreenUtil().screenHeight,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 100.h,
+          ),
+          Image.asset(R.ASSETS_IMAGES_GETSTARTED_PNG),
+          SizedBox(
+            height: 30.h,
+          ),
+          Text(
+            AppText.kWelcomeHeader,
+            textAlign: TextAlign.center,
+            style: appStyle(24, Kolors.kPrimary, FontWeight.bold),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          SizedBox(
+            width: ScreenUtil().screenWidth - 100,
+            child: Text(
+              AppText.kWelcomeMessage,
+              textAlign: TextAlign.center,
+              style: appStyle(11, Kolors.kGray, FontWeight.normal),
+            ),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          CustomButton(
+            text: AppText.kGetStarted,
+            btnHieght: 35,
+            radius: 20,
+            btnWidth: ScreenUtil().screenWidth - 100,
+            onTap: () {
+              ///TODO: uncomment the bool storage when the app is ready
+              // Storage().setBool('firstOpen', true);
 
-            return Column(
-              children: [
-                // Top Padding
-                SizedBox(
-                  height: screenHeight * 0.1, // 10% of screen height
-                ),
-                Image.asset(R.ASSETS_IMAGES_GETSTARTED_PNG),
-                SizedBox(
-                  height: screenHeight * 0.05, // 5% of screen height
-                ),
-                Text(
-                  AppText.kWelcomeHeader,
-                  textAlign: TextAlign.center,
-                  style: appStyle(24.sp, Kolors.kPrimary, FontWeight.bold),
-                ),
-                SizedBox(
-                  height: screenHeight * 0.03,
-                ),
-                SizedBox(
-                  width: screenWidth - 100,
-                  child: Text(
-                    AppText.kWelcomeMessage,
-                    textAlign: TextAlign.center,
-                    style: appStyle(10.sp, Kolors.kGray, FontWeight.normal),
-                  ),
-                ),
-
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.h),
-                  child:CustomButton(
-                    text: AppText.kGetStarted,
-                    onTap: () {
-                      //TODO:uncomment the bool storage when app is ready
-                      // Storage().setBool('firstOpen', true);
-                      context.go('/home');
-                    },
-                    btnHeight: 35.h,
-                    radius: 20.r,
-                    btnWidth: screenWidth - 100,
-                  ),
-
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ReusableText(text: "Already have an accout?",
-                        style: appStyle(11, Kolors.kDark, FontWeight.normal)),
-                    TextButton(onPressed: (){
-
-                      context.go('/login');
-                    }, child: const Text("Sign in",
-                      style: TextStyle(
-                        fontSize: 11,color: Colors.blue
-                      ),))
-                  ],
-                )
-              ],
-            );
-          },
-        ),
+              context.go('/home');
+            },
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ReusableText(
+                  text: "Already have an account?",
+                  style: appStyle(12, Kolors.kDark, FontWeight.normal)),
+              TextButton(
+                  onPressed: () {
+                    //navigate to login page 
+                     context.go('/login');
+                  },
+                  child: const Text(
+                    "Sign In",
+                    style: TextStyle(fontSize: 12, color: Colors.blue),
+                  ))
+            ],
+          )
+        ],
       ),
-    );
+    ));
   }
 }

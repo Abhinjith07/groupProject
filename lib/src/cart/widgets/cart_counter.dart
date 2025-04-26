@@ -13,36 +13,35 @@ class CartCounter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<CartNotifier>(
-        builder:( context, cartNotifier,child) {
-          return SizedBox(
+      builder: (context, cartNotifier, child) {
+        return SizedBox(
           height: 23.h,
-            width: 60.w,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    cartNotifier.decrement();
-                  },
-                  child: const Icon(AntDesign.minussquareo,color: Kolors.kPrimary,size: 20,),
-                ),
-                
-                Padding(
-                  padding: const EdgeInsets.only(top:3.0),
-                  child: ReusableText(text: cartNotifier.qty.toString(), style: appStyle(13, Kolors.kDark, FontWeight.w500)),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    cartNotifier.increment();
-                  },
-                  child: const Icon(AntDesign.plussquareo,color: Kolors.kPrimary,size: 20,),
-                ),
+          width: 60.w,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  cartNotifier.decrement();
+                },
+                child: const Icon(AntDesign.minussquareo, color: Kolors.kPrimary, size: 20,),
+              ),
 
-              ],
+              Padding(
+                padding: const EdgeInsets.only(top :3.0),
+                child: ReusableText(text: cartNotifier.qty.toString(), style: appStyle(13, Kolors.kDark, FontWeight.w500)),
+              ),
 
-            ),
-          );
-    },
+              GestureDetector(
+                onTap: () {
+                  cartNotifier.increment();
+                },
+                child: const Icon(AntDesign.plussquareo, color: Kolors.kPrimary, size: 20,),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

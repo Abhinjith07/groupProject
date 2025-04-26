@@ -1,4 +1,3 @@
-
 import 'package:fashion_app/common/utils/kcolors.dart';
 import 'package:fashion_app/common/utils/kstrings.dart';
 import 'package:fashion_app/common/widgets/app_style.dart';
@@ -7,8 +6,8 @@ import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/const/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 Future<dynamic> logoutBottomSheet(BuildContext context) {
   return showModalBottomSheet<void>(
@@ -53,7 +52,7 @@ Future<dynamic> logoutBottomSheet(BuildContext context) {
                     borderColor: Kolors.kDark,
                     btnColor: Kolors.kWhite,
                     onTap: () => Navigator.pop(context),
-                    btnHeight: 35.h,
+                    btnHieght: 35.h,
                     radius: 16,
                     btnWidth: ScreenUtil().screenWidth / 2.2,
                   ),
@@ -65,7 +64,7 @@ Future<dynamic> logoutBottomSheet(BuildContext context) {
                       // context.go("/home");
                       // context.pop();
                     },
-                    btnHeight: 35.h,
+                    btnHieght: 35.h,
                     radius: 16,
                     btnWidth: ScreenUtil().screenWidth / 2.2,
                   ),

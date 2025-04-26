@@ -1,3 +1,4 @@
+import 'package:fashion_app/common/utils/enums.dart';
 import 'package:fashion_app/src/addresses/controllers/address_notifier.dart';
 import 'package:fashion_app/src/cart/controllers/cart_notifier.dart';
 import 'package:fashion_app/src/checkout/views/failed_payment.dart';
@@ -81,6 +82,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
     return Consumer<CartNotifier>(
       builder: (context, cartNotifier, child) {
         if (cartNotifier.success.contains('checkout-success')) {
+          
           return const SuccessfulPayment();
         } else if (cartNotifier.success.contains('cancel')) {
           // context.read<AddressNotifier>().clearAddress();

@@ -13,8 +13,7 @@ FetchCategories fetchHomeCategories() {
     isLoading.value = true;
 
     try {
-      Uri url =
-          Uri.parse('${Environment.appBaseUrl}/api/products/categories/home/');
+      Uri url = Uri.parse('${Environment.appBaseUrl}/api/products/categories/home/');
 
       final response = await http.get(url);
 

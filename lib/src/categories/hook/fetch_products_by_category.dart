@@ -4,7 +4,7 @@ import 'package:fashion_app/src/products/models/products_model.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
 
-FetchProduct fetchProductsByCategories(int categoryid) {
+FetchProduct fetchProductsByCategories(int categoryId) {
   final products = useState<List<Products>>([]);
   final isLoading = useState(false);
   final error = useState<String?>(null);
@@ -14,7 +14,7 @@ FetchProduct fetchProductsByCategories(int categoryid) {
 
     try {
       Uri url = Uri.parse(
-          '${Environment.appBaseUrl}/api/products/category/?category=$categoryid');
+          '${Environment.appBaseUrl}/api/products/category/?category=$categoryId');
 
       final response = await http.get(url);
 

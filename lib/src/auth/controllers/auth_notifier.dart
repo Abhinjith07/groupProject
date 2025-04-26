@@ -70,6 +70,7 @@ class AuthNotifier with ChangeNotifier {
         setRLoading();
         ctx.pop();
       } else if (response.statusCode == 400) {
+
         setRLoading();
         var data = jsonDecode(response.body);
         showErrorPopup(ctx, data['password'][0], null, null);
@@ -82,21 +83,20 @@ class AuthNotifier with ChangeNotifier {
 
   void getUser(String accessToken, BuildContext ctx) async {
     try {
-      var url = Uri.parse('${Environment.appBaseUrl}/auth/users/me');
+      var url = Uri.parse('${Environment.appBaseUrl}/auth/users/me/');
+
       var response = await http.get(
         url,
-          headers: {
-            'Authorization': 'Token $accessToken',
-            'Content-Type': 'application/json',
-          }
+        headers: {
+          'Authorization': 'Token $accessToken',
+          'Content-Type': 'application/json',
+        },
       );
-
       if (response.statusCode == 200) {
         Storage().setString('accessToken', accessToken);
 
         Storage().setString(accessToken, response.body);
         ctx.read<TabIndexNotifier>().setIndex(0);
-
         ctx.go('/home');
       }
     } catch (e) {

@@ -48,28 +48,30 @@ class ProductPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 16.0),
                     child: Consumer<WishlistNotifier>(
-                      builder: (context,wishlistNotifier,child) {
-                      return  GestureDetector(
-                      onTap: () {
-                        if (accessToken == null) {
-                          loginBottomSheet(context);
-                        }else{
-                          wishlistNotifier..addRemoveWishlist(
-                              productNotifier.product!.id,() {});
-                        }
-
-                  },
-                      child:  CircleAvatar(
-                        backgroundColor: Kolors.kSecondaryLight,
-                       child: Icon(
-                        AntDesign.heart,
-                        color:wishlistNotifier.wishlist.contains(productNotifier.product!.id)? Kolors.kRed : Kolors.kGray ,
-                        size: 18,
-                      ),
+                      builder: (context, wishlistNotifier, child) {
+                        return GestureDetector(
+                          onTap: () {
+                            if (accessToken == null) {
+                              loginBottomSheet(context);
+                            } else {
+                              wishlistNotifier.addRemoveWishlist(
+                                  productNotifier.product!.id, () {});
+                            }
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: Kolors.kSecondaryLight,
+                            child: Icon(
+                              AntDesign.heart,
+                              color: wishlistNotifier.wishlist
+                                      .contains(productNotifier.product!.id)
+                                  ? Kolors.kRed
+                                  : Kolors.kGray,
+                              size: 18,
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                  },
-                  ),
                   )
                 ],
                 flexibleSpace: FlexibleSpaceBar(
@@ -173,10 +175,10 @@ class ProductPage extends StatelessWidget {
                       style: appStyle(14, Kolors.kDark, FontWeight.w600)),
                 ),
               ),
-               const SliverToBoxAdapter(
-                 child: Padding(
-                     padding: EdgeInsets.all(8.0),
-                child: ProductSizesWidget(),
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ProductSizesWidget(),
                 ),
               ),
               SliverToBoxAdapter(
@@ -196,7 +198,6 @@ class ProductPage extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: ColorSelectionWidget(),
-
                 ),
               ),
               SliverToBoxAdapter(
@@ -208,7 +209,7 @@ class ProductPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ReusableText(
-                      text: "Select Products",
+                      text: "Similar Products",
                       style: appStyle(14, Kolors.kDark, FontWeight.w600)),
                 ),
               ),
@@ -218,25 +219,26 @@ class ProductPage extends StatelessWidget {
             ],
           ),
           bottomNavigationBar: ProductBottomBar(
-            onPressed: (){
-              if (accessToken == null){
+            onPressed: () {
+              if (accessToken == null) {
                 loginBottomSheet(context);
-              }else{
-                if (context.read<ColorsSizesNotifier>().color == '' ||
-                    context.read<ColorsSizesNotifier>().sizes == ''){
-                  showErrorPopup(context,AppText.kCartErrorText ,"Error Adding to Cart", true);
-                }else{
+              } else {
+                if (context.read<ColorSizesNotifier>().color == '' ||
+                    context.read<ColorSizesNotifier>().sizes == '') {
+                  showErrorPopup(context, AppText.kCartErrorText,
+                      "Error Adding to Cart", true);
+                } else {
                   CreateCartModel data = CreateCartModel(
                       product: context.read<ProductNotifier>().product!.id,
                       quantity: 1,
-                      size: context.read<ColorsSizesNotifier>().sizes ,
-                      color: context.read<ColorsSizesNotifier>().color);
+                      size: context.read<ColorSizesNotifier>().sizes,
+                      color: context.read<ColorSizesNotifier>().color);
 
                   String cartData = createCartModelToJson(data);
+
                   context.read<CartNotifier>().addToCart(cartData, context);
                 }
               }
-
             },
             price: productNotifier.product!.price.toStringAsFixed(2),
           ),

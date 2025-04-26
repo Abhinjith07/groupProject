@@ -15,7 +15,7 @@ class UpdateButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onUpdate,
-      onLongPress: (){
+      onLongPress: () {
         context.read<CartNotifier>().clearSelected();
       },
       child: Container(
@@ -25,8 +25,10 @@ class UpdateButton extends StatelessWidget {
           color: Kolors.kPrimaryLight,
           borderRadius: BorderRadius.circular(12),
         ),
-        child:Center(
-          child: ReusableText(text: "Update", style: appStyle(11, Kolors.kWhite, FontWeight.normal)),
+        child: Center(
+          child: ReusableText(
+              text: "Update",
+              style: appStyle(11, Kolors.kWhite, FontWeight.normal)),
         ),
       ),
     );

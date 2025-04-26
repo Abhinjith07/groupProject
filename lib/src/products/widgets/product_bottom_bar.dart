@@ -14,10 +14,10 @@ class ProductBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height:68.h,
+      height: 68.h,
       color: Colors.white.withOpacity(.6),
       child: Padding(
-        padding:EdgeInsets.fromLTRB(16.w, 0, 12.w,12.h),
+        padding: EdgeInsets.fromLTRB(16.w, 0, 12.w, 12.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,15 +29,14 @@ class ProductBottomBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                      padding:const EdgeInsets.only(top: 4.0),
-
-                 child:  ReusableText(
-                      text: 'Total price',
-                      style: appStyle(14, Kolors.kGray,FontWeight.w400))
+                    padding: const EdgeInsets.only(top: 4.0),
+                    child: ReusableText(
+                        text: 'Total Price',
+                        style: appStyle(14, Kolors.kGray, FontWeight.w400)),
                   ),
                   ReusableText(
                       text: "\$ $price",
-                      style: appStyle(16, Kolors.kDark,FontWeight.w600))
+                      style: appStyle(16, Kolors.kDark, FontWeight.w600))
                 ],
               ),
             ),
@@ -50,7 +49,7 @@ class ProductBottomBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                   const Icon(
+                    const Icon(
                       FontAwesome.shopping_bag,
                       size: 16,
                       color: Kolors.kWhite,
@@ -60,7 +59,7 @@ class ProductBottomBar extends StatelessWidget {
                     ),
                     ReusableText(
                         text: 'Add To Cart',
-                        style: appStyle(14,Kolors.kWhite, FontWeight.bold))
+                        style: appStyle(14, Kolors.kWhite, FontWeight.bold)),
                   ],
                 ))
           ],

@@ -1,9 +1,7 @@
 import 'package:fashion_app/common/services/storage.dart';
 import 'package:fashion_app/common/utils/environment.dart';
-
 import 'package:fashion_app/src/cart/hooks/results/cart_results.dart';
 import 'package:fashion_app/src/cart/models/cart_model.dart';
-
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,7 +21,7 @@ FetchCart fetchCart() {
         url,
         headers: {
           'Authorization': 'Token $accessToken',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
       );
 
@@ -33,8 +31,6 @@ FetchCart fetchCart() {
       }
     } catch (e) {
       error.value = e.toString();
-
-
     } finally {
       isLoading.value = false;
     }

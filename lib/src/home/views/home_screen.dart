@@ -3,7 +3,7 @@ import 'package:fashion_app/src/home/widgets/categories_list.dart';
 import 'package:fashion_app/src/home/widgets/custom_app_bar.dart';
 import 'package:fashion_app/src/home/widgets/home_header.dart';
 import 'package:fashion_app/src/home/widgets/home_slider.dart';
-import 'package:fashion_app/src/home/widgets/home_tab.dart';
+import 'package:fashion_app/src/home/widgets/home_tabs.dart';
 import 'package:fashion_app/src/products/widgets/explore_products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,37 +49,41 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-        appBar: const PreferredSize(
-            preferredSize: Size.fromHeight(110), child: CustomAppBar()),
-        body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 12.w),
-          children: [
-            SizedBox(
-              height: 20.h,
-            ),
-            const HomeSlider(),
-            SizedBox(
-              height: 15.h,
-            ),
-            const HomeHeader(),
-            SizedBox(
-              height: 10.h,
-            ),
-            const HomeCategoriesList(),
-            SizedBox(
-              height: 15.h,
-            ),
-            HomeTabs(tabController: _tabController),
-            SizedBox(
-              height: 15.h,
-            ),
-            const ExploreProducts(),
-            SizedBox(
-              height: 100.h,
-            ),
-          ],
-        ));
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(110),
+        child: CustomAppBar(),
+      ),
+      body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
+        children: [
+          SizedBox(
+            height: 20.h,
+          ),
+          const HomeSlider(),
+          SizedBox(
+            height: 15.h,
+          ),
+          const HomeHeader(),
+          SizedBox(
+            height: 10.h,
+          ),
+          const HomeCategoriesList(),
+          SizedBox(
+            height: 15.h,
+          ),
+          HomeTabs(tabController: _tabController),
+          SizedBox(
+            height: 15.h,
+          ),
+          const ExploreProducts(),
+          SizedBox(
+            height: 100.h,
+          ),
+        ],
+      ),
+    );
   }
 }
 

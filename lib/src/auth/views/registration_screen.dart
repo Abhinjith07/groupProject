@@ -9,7 +9,6 @@ import 'package:fashion_app/src/auth/models/registration_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -25,7 +24,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
   late final TextEditingController _emailController = TextEditingController();
   late final TextEditingController _passwordController =
       TextEditingController();
+
   final FocusNode _passwordNode = FocusNode();
+
   @override
   void dispose() {
     _usernameController.dispose();
@@ -70,7 +71,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
               children: [
                 EmailTextField(
                   radius: 25,
-                  focusNode: _passwordNode,
                   hintText: "Username",
                   controller: _usernameController,
                   prefixIcon: const Icon(
@@ -123,24 +123,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     : CustomButton(
                         onTap: () {
                           RegistrationModel model = RegistrationModel(
-                              username: _usernameController.text,
                               password: _passwordController.text,
+                              username: _usernameController.text,
                               email: _emailController.text);
 
                           String data = registrationModelToJson(model);
+
+                          print(data);
 
                           context
                               .read<AuthNotifier>()
                               .registrationFunc(data, context);
                         },
-                        text: "S I G N U P",
-                        btnHeight: ScreenUtil().screenWidth,
+                        text: "S  I  G  N  U  P",
+                        btnWidth: ScreenUtil().screenWidth,
                         btnHieght: 40,
                         radius: 20,
-                      ),
+                      )
               ],
             ),
-          ),
+          )
         ],
       ),
     );

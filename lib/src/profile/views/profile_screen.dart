@@ -22,6 +22,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String? accessToken = Storage().getString('accessToken');
+
     if (accessToken == null) {
       return const LoginPage();
     }
@@ -44,22 +45,19 @@ class ProfilePage extends StatelessWidget {
                   height: 15.h,
                 ),
                 ReusableText(
-                  text: user!.email,
-                  style: appStyle(11, Kolors.kGray, FontWeight.normal),
-                ),
+                    text: user!.email,
+                    style: appStyle(11, Kolors.kGray, FontWeight.normal)),
                 SizedBox(
                   height: 7.h,
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15.w),
-                  decoration: BoxDecoration(
-                      color: Kolors.kOffWhite,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: ReusableText(
-                    text: user.username,
-                    style: appStyle(14, Kolors.kDark, FontWeight.w600),
-                  ),
-                ),
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    decoration: BoxDecoration(
+                        color: Kolors.kOffWhite,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ReusableText(
+                        text: user.username,
+                        style: appStyle(14, Kolors.kDark, FontWeight.w600)))
               ],
             ),
             SizedBox(
@@ -73,7 +71,7 @@ class ProfilePage extends StatelessWidget {
                     title: 'My Orders',
                     leading: Octicons.checklist,
                     onTap: () {
-                      context.push('/orders');
+                      context.go('/orders');
                     },
                   ),
                   ProfileTileWidget(
@@ -106,7 +104,7 @@ class ProfilePage extends StatelessWidget {
               child: CustomButton(
                 text: "Logout".toUpperCase(),
                 btnColor: Kolors.kRed,
-                btnHeight: 35,
+                btnHieght: 35,
                 btnWidth: ScreenUtil().screenWidth,
                 onTap: () {
                   Storage().removeKey('accessToken');

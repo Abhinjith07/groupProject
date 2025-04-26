@@ -1,6 +1,4 @@
-import 'package:fashion_app/src/cart/models/cart_count_model.dart';
 import 'package:fashion_app/src/cart/models/cart_model.dart';
-import 'package:fashion_app/src/categories/models/categories_model.dart';
 import 'package:flutter/material.dart';
 
 class FetchCart {
@@ -11,7 +9,7 @@ class FetchCart {
 
   FetchCart(
       {required this.cart,
-        required this.isLoading,
-        required this.error,
-        required this.refetch});
+      required this.isLoading,
+      required this.error,
+      required this.refetch});
 }

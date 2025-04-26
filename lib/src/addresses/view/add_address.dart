@@ -6,13 +6,12 @@ import 'package:fashion_app/common/widgets/custom_button.dart';
 import 'package:fashion_app/common/widgets/error_modal.dart';
 import 'package:fashion_app/common/widgets/reusable_text.dart';
 import 'package:fashion_app/const/constants.dart';
-import 'package:fashion_app/src/addresses/models/create_addresses_model.dart';
+import 'package:fashion_app/src/addresses/controllers/address_notifier.dart';
+import 'package:fashion_app/src/addresses/models/create_address_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-
-import '../controllers/address_notifier.dart';
 
 class AddAddress extends StatefulWidget {
   const AddAddress({super.key});
@@ -27,125 +26,123 @@ class _AddAddressState extends State<AddAddress> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: AppBackButton(),
-        title: ReusableText(text: AppText.kAddShipping, style: appStyle(16, Kolors.kPrimary, FontWeight.bold)),
-      ),
-
-      body: Consumer<AddressNotifier>(
-        builder: (context, addressNotifier, child) {
-          return ListView(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            children: [
-              SizedBox(
-                height: 20.h,
-              ),
-              
-              _buildtextfield(
-                  hintText: 'Phone Number',
-                  keyboard: TextInputType.phone,
-                  controller: _phoneController,
-                  onSubmitted: (p) {}),
-
-              SizedBox(
-                height: 20.h,
-              ),
-
-              _buildtextfield(
-                  hintText: 'Address',
-                  keyboard: TextInputType.text,
-                  controller: _addressController,
-                  onSubmitted: (p) {}),
-
-              SizedBox(
-                height: 20.h,
-              ),
-
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: List.generate(
-                      addressNotifier.addressTypes.length, (i) {
+        appBar: AppBar(
+          leading: AppBackButton(),
+          title: ReusableText(
+              text: AppText.kAddShipping,
+              style: appStyle(16, Kolors.kPrimary, FontWeight.bold)),
+        ),
+        body: Consumer<AddressNotifier>(
+          builder: (context, addressNotifier, child) {
+            return ListView(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              children: [
+                SizedBox(
+                  height: 20.h,
+                ),
+                _buildtextfield(
+                    hintText: 'Phone Number',
+                    keyboard: TextInputType.phone,
+                    controller: _phoneController,
+                    onSubmitted: (p) {}),
+                SizedBox(
+                  height: 20.h,
+                ),
+                _buildtextfield(
+                    hintText: 'Address',
+                    keyboard: TextInputType.text,
+                    controller: _addressController,
+                    onSubmitted: (p) {}),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children:
+                        List.generate(addressNotifier.addressTypes.length, (i) {
                       final addressType = addressNotifier.addressTypes[i];
-                    return GestureDetector(
-                      onTap: (){
-                        addressNotifier.setAddressType(addressType);
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(right: 20.w),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                          color: addressNotifier.addressType == addressType ?
-                          Kolors.kPrimaryLight : Kolors.kWhite,
-                          borderRadius: kRadiusAll,
-                          border: Border.all(
-                            color: Kolors.kPrimary,
-                            width: 1
-                          )
+                      return GestureDetector(
+                        onTap: () {
+                          addressNotifier.setAddressType(addressType);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(right: 20.w),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                              color: addressNotifier.addressType == addressType
+                                  ? Kolors.kPrimaryLight
+                                  : Kolors.kWhite,
+                              borderRadius: kRadiusAll,
+                              border:
+                                  Border.all(color: Kolors.kPrimary, width: 1)),
+                          child: ReusableText(
+                              text: addressType,
+                              style: appStyle(
+                                  12,
+                                  addressNotifier.addressType == addressType
+                                      ? Kolors.kWhite
+                                      : Kolors.kPrimary,
+                                  FontWeight.normal)),
                         ),
-                        child: ReusableText(text: addressType, style: appStyle(12,addressNotifier.addressType == addressType ? Kolors.kWhite : Kolors.kPrimary, FontWeight.normal)) ,
-                      ),
-                    );
-                  }) ,
+                      );
+                    }),
+                  ),
                 ),
-              ),
-
-
-              SizedBox(
-                height: 15.h,
-              ),
-
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ReusableText(text: "Set this address as default", style: appStyle(14,Kolors.kPrimary, FontWeight.normal)) ,
-                    
-                    CupertinoSwitch(value: addressNotifier.defaultToggle,
-                        thumbColor: Kolors.kSecondaryLight,
-                        activeTrackColor: Kolors.kPrimary,
-                        onChanged: (d){
-                      addressNotifier.setDefaultToggle(d);
-                    })
-                  ],
+                SizedBox(
+                  height: 15.h,
                 ),
-              ),
-
-
-              SizedBox(
-                height: 20.h,
-              ),
-
-              CustomButton(
-                btnHeight: 35.h,
-                radius: 9,
-                text: "S U B M I T", onTap: () {
-                  if(_addressController.text.isNotEmpty &&
-                      _phoneController.text.isNotEmpty &&
-                      addressNotifier.addressType != '') {
-                    //add address
-                    CreateAddress address = CreateAddress(
-                        lat: 0.0,
-                        lng: 0.0,
-                        isDefault: addressNotifier.defaultToggle,
-                        address: _addressController.text,
-                        phone: _phoneController.text,
-                        addressType: addressNotifier.addressType);
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ReusableText(
+                          text: "Set this address as default",
+                          style:
+                              appStyle(14, Kolors.kPrimary, FontWeight.normal)),
+                      CupertinoSwitch(
+                          value: addressNotifier.defaultToggle,
+                          thumbColor: Kolors.kSecondaryLight,
+                          activeColor: Kolors.kPrimary,
+                          onChanged: (d) {
+                            addressNotifier.setDefaultToggle(d);
+                          })
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                CustomButton(
+                  btnHieght: 35.h,
+                  radius: 9,
+                  text: "S U B M I T",
+                  onTap: () {
+                    if (_addressController.text.isNotEmpty &&
+                        _phoneController.text.isNotEmpty &&
+                        addressNotifier.addressType != '') {
+                      //add address
+                      CreateAddress address = CreateAddress(
+                          lat: 0.0,
+                          lng: 0.0,
+                          isDefault: addressNotifier.defaultToggle,
+                          address: _addressController.text,
+                          phone: _phoneController.text,
+                          addressType: addressNotifier.addressType);
 
                       String data = createAddressToJson(address);
 
                       addressNotifier.addAddress(data, context);
-                  } else {
-                    showErrorPopup(context, "You Have Missing Address Fields", 'Error Adding Address', false);
-                  }
-              },)
-            ],
-          );
-        },
-      ),
-    );
+                    } else {
+                      showErrorPopup(context, "You have Missing Address Fields",
+                          'Error Adding Address', false);
+                    }
+                  },
+                )
+              ],
+            );
+          },
+        ));
   }
 }
 

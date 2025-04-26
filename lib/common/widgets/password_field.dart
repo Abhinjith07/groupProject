@@ -1,26 +1,21 @@
-
-
-
-
- import 'package:flutter/cupertino.dart';
- import 'package:flutter/material.dart';
+import 'package:fashion_app/common/utils/kcolors.dart';
+import 'package:fashion_app/common/widgets/app_style.dart';
+import 'package:fashion_app/src/auth/controllers/password_notifier.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../src/auth/controllers/password_notifier.dart';
-import '../utils/kcolors.dart';
-import 'app_style.dart';
-
- class PasswordField extends StatelessWidget {
-   const PasswordField({
+class PasswordField extends StatelessWidget {
+  const PasswordField({
     Key? key,
     required this.controller,
     this.focusNode, this.radius,
-   }) : super(key: key);
+  }) : super(key: key);
 
-   final TextEditingController controller;
-   final FocusNode? focusNode;
-   final double? radius;
-   @override
+  final TextEditingController controller;
+  final FocusNode? focusNode;
+  final double? radius;
+  @override
   Widget build(BuildContext context) {
     return Consumer<PasswordNotifier>(
       builder: (context, passwordNotifier, child) {
